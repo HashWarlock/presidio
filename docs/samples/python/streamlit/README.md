@@ -52,8 +52,8 @@ This Streamlit demo provides an interactive web interface to explore Presidio's 
 ## Quick Start on Phala Cloud
 
 ### Prerequisites
-1. Install [Phala Cloud CLI](https://docs.phala.network/)
-2. Have a Phala Cloud account and API credentials configured
+1. Install [Phala Cloud CLI](https://docs.phala.network/) `npm install -g phala`
+2. Have a Phala Cloud account and [API credentials](https://cloud.phala.network/dashboard/tokens) configured
 3. Create a `.env` file with your configuration (optional)
 
 ### Step 1: Clone and Navigate
@@ -82,6 +82,10 @@ ALLOW_OTHER_MODELS=true
 Deploy the application using the Phala Cloud CLI:
 
 ```bash
+# (optional) build and deploy docker image then update docker-compose.yml file with the new image
+phala docker build
+phala docker push
+# Deploy to Phala Cloud
 phala cvms create -n presidio-tee -c docker-compose.yml --vcpu 2 --memory 8394 --disk-size 80 -e .env
 ```
 
