@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  presidio-streamlit:
+    image: hashwarlock/presidio-tee:v0.0.1
+    ports:
+      - "7860:7860"
+    environment:
+      # Optional: OpenAI configuration
+      - OPENAI_TYPE=${OPENAI_TYPE:-openai}
+      - OPENAI_KEY=${OPENAI_KEY:-}
+      - OPENAI_API_VERSION=${OPENAI_API_VERSION:-2024-07-18}
+      - OPENAI_MODEL=${OPENAI_MODEL:-text-davinci-003}
+      
+      # Optional: Allow downloading additional models
+      - ALLOW_OTHER_MODELS=${ALLOW_OTHER_MODELS:-true}
+    # volumes:
+      # Optional: Mount local directory for development
+      # - .:/home/user/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:7860/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s 
